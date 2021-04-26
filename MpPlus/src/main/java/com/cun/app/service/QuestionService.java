@@ -16,5 +16,6 @@ import com.cun.app.vo.QuestionStudentVO;
 public interface QuestionService extends IService<Question> {
 
     Page<QuestionStudentVO> getQuestionStudent(Page<QuestionStudentVO> page);
+    Page<QuestionStudentVO> getQuestionStudentXML(Page<QuestionStudentVO> page);
 
 }

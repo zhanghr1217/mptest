@@ -41,7 +41,7 @@ public class Student implements Serializable {
     private String phone;
 
     @ApiModelProperty(value = "学生学号")
-    private String num;
+    private Integer num;
 
     @ApiModelProperty(value = "学生真实姓名")
     @TableField("true_name")
@@ -50,6 +50,17 @@ public class Student implements Serializable {
     public Student(String name, String password) {
         this.name = name;
         this.password = password;
+    }
+
+    public Student(Integer id, String name, String password, Integer points, String email, String phone, Integer num, String trueName) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.points = points;
+        this.email = email;
+        this.phone = phone;
+        this.num = num;
+        this.trueName = trueName;
     }
 
     public Student() {
@@ -104,11 +115,11 @@ public class Student implements Serializable {
         this.phone = phone;
     }
 
-    public String getNum() {
+    public Integer getNum() {
         return num;
     }
 
-    public void setNum(String num) {
+    public void setNum(Integer num) {
         this.num = num;
     }
 

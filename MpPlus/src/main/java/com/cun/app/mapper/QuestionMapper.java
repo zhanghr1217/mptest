@@ -25,4 +25,8 @@ public interface QuestionMapper extends BaseMapper<Question> {
     @Select("SELECT t_question.*,t_student.`name` FROM t_question,t_student WHERE t_question.student_id=t_student.id")
     List<QuestionStudentVO> getQuestionStudent(Pagination page);
 
+    List<QuestionStudentVO> getQuestionStudentXML(Pagination page);
+
+
+
 }

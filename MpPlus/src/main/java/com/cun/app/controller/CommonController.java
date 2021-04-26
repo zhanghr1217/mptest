@@ -1,17 +1,20 @@
 package com.cun.app.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.cun.app.entity.Question;
+import com.cun.app.entity.Student;
+import com.cun.app.entity.Student2;
 import com.cun.app.service.QuestionService;
 import com.cun.app.service.StudentService;
 import com.cun.app.vo.QuestionStudentVO;
+import com.cun.app.vo.RestfulResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +28,33 @@ public class CommonController {
 
     @Autowired
     StudentService studentService;
+
+    /*  @RequestMapping(value = "/getStu/{page}/{size}", method = RequestMethod.GET)
+      public RestfulResult<Student>  getAllStu(@PathVariable Integer page, @PathVariable Integer size) {
+          RestfulResult<Student> restfulResult=new RestfulResult<>();
+          Page<Student> stuPage = studentService.selectPage(new Page<>(page, size));
+          if (stuPage.getRecords().size() == 0){
+             restfulResult.setCode("500");
+             restfulResult.setMessage("没有数据");
+             restfulResult.setData(null);
+          }
+          else {
+              restfulResult.setCode("200");
+              restfulResult.setMessage("success");
+              restfulResult.setData(stuPage.getRecords().get(0));
+          }
+          //return JSON.toJSONString(restfulResult);
+          return restfulResult;
+      }*/
+    @ResponseBody
+    @RequestMapping(value = "/getStu/{page}/{size}", method = RequestMethod.GET)
+    public Student2 getAllStu( ){
+        //RestfulResult<Student> restfulResult = new RestfulResult<>();
+        Student2 student2 = new Student2(1, "xiaowang");
+        return student2;
+    }
+
+
 
     /**
      * {
@@ -71,9 +101,10 @@ public class CommonController {
     public Map<String, Object> getAllQuestionByPage(@PathVariable Integer page, @PathVariable Integer size) {
         Map<String, Object> map = new HashMap<>();
         Page<Question> questionPage = questionService.selectPage(new Page<>(page, size));
-        if (questionPage.getRecords().size() == 0) {
-            map.put("code", 400);
-        } else {
+        if (questionPage.getRecords().size() == 0){
+            map.put("code",400);
+        }
+            else {
             map.put("code", 200);
             map.put("data", questionPage);
         }
@@ -147,6 +178,20 @@ public class CommonController {
         }
         return map;
     }
+
+    @GetMapping("/getAllQuestionWithStudentByPageXML/{page}/{size}")
+    public Map<String, Object> getAllQuestionWithStudentByPageXML(@PathVariable Integer page, @PathVariable Integer size) {
+        Map<String, Object> map = new HashMap<>();
+        Page<QuestionStudentVO> questionStudent = questionService.getQuestionStudentXML(new Page<>(page, size));
+        if (questionStudent.getRecords().size() == 0) {
+            map.put("code", 400);
+        } else {
+            map.put("code", 200);
+            map.put("data", questionStudent);
+        }
+        return map;
+    }
+
     /**
      *  Time：35 ms - ID：com.cun.app.mapper.QuestionMapper.getQuestionStudent
      *  Execute SQL：

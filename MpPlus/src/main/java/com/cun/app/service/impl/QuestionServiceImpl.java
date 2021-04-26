@@ -24,4 +24,10 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         return page.setRecords(this.baseMapper.getQuestionStudent(page));
     }
 
+    @Override
+    public Page<QuestionStudentVO> getQuestionStudentXML(Page<QuestionStudentVO> page) {
+        return page.setRecords(this.baseMapper.getQuestionStudentXML(page));
+    }
+
+
 }
