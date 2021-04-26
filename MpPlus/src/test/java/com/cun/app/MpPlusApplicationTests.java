@@ -1,4 +1,4 @@
-package com.cun.app;
+package java.com.cun.app;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
